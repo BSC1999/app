@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/img_16"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_patients"
+        android:icon="@drawable/img_17"
+        android:title="Patients" />
+    <item
+        android:id="@+id/nav_schedule"
+        android:icon="@drawable/img_18"
+        android:title="Schedule" />
+    <item
+        android:id="@+id/nav_ai_assistant"
+        android:icon="@drawable/img_19"
+        android:title="AI Assistant" />
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/img_20"
+        android:title="More" />
+</menu>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7F8"
+    tools:context=".DoctorProfileActivity">
+
+    <!-- Header Section -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="52dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doctor Profile Settings"
+                android:textColor="#1A1A1A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_container"
+        app:layout_constraintTop_toBottomOf="@id/header_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="24dp">
+
+            <!-- Modern Profile Picture with Camera Icon -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fl_doctor_profile_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_doctor_profile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/img_21"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+                <!-- Updated Camera Button Color to #E8F3F3 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="#E8F3F3"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_doctor_profile"
+                    app:layout_constraintEnd_toEndOf="@id/iv_doctor_profile">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_menu_camera"
+                        app:tint="#5E9CB0" />
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/et_doc_name"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/ic_launcher_background"
+                android:backgroundTint="#E8F3F3"
+                android:hint="Doctor Name"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="12dp"
+                android:textColor="#1A1A1A"/>
+
+            <EditText
+                android:id="@+id/et_doc_id"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/ic_launcher_background"
+                android:backgroundTint="#E8F3F3"
+                android:hint="Doctor ID"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:inputType="text"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_marginBottom="12dp"
+                android:textColor="#1A1A1A"/>
+
+            <EditText
+                android:id="@+id/et_doc_role"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/ic_launcher_background"
+                android:backgroundTint="#E8F3F3"
+                android:hint="Role (Doctor/Intern/Consultant)"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:inputType="text"
+                android:layout_marginBottom="32dp"
+                android:textColor="#1A1A1A"/>
+
+            <!-- Appointment Reminders Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#E8F3F3"
+                app:strokeWidth="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Appointment Reminders"
+                        android:textColor="#1A1A1A"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <!-- Switch uses light teal theme for track when ON -->
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switch_reminders"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:trackTint="#5E9CB0"
+                        app:thumbTint="#FFFFFF"
+                        android:checked="true" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save_profile"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#00E5FF"
+                android:text="Save Settings"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Navigation -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottom_nav_container"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:strokeWidth="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <LinearLayout android:id="@+id/nav_home_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_16" app:tint="@color/nav_icon_unselected" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Home" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/nav_patients_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_17" app:tint="@color/nav_icon_unselected" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Patients" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/nav_schedule_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_18" app:tint="@color/nav_icon_unselected" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Schedule" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/nav_ai_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_19" app:tint="@color/nav_icon_unselected" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI Assistant" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/nav_more_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <View android:layout_width="48dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@drawable/circle_bg" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/img_20" app:tint="@color/nav_icon_selected" />
+                </FrameLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="More" android:textColor="@color/nav_icon_selected" android:textSize="12sp" android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
