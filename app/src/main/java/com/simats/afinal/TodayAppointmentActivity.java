@@ -22,7 +22,7 @@ public class TodayAppointmentActivity extends AppCompatActivity {
     private List<PatientInfo> patientList;
     private TextView tvCurrentDate;
     private DateChangeReceiver dateChangeReceiver;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
