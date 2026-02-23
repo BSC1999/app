@@ -98,12 +98,19 @@ public class PatientProfileActivity extends AppCompatActivity {
         XrayReportManager.init(this);
         syncXrayVisibility();
 
-        // Camera & Gallery
+        // Camera & Gallery Fix: Using new addImageReport logic
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == RESULT_OK) XrayReportManager.incrementCount(this);
+            if (result.getResultCode() == RESULT_OK) {
+                String dummyUri = "captured_" + System.currentTimeMillis();
+                XrayReportManager.addImageReport(this, dummyUri);
+                Toast.makeText(this, "X-ray captured & report pending", Toast.LENGTH_SHORT).show();
+            }
         });
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
-            if (uri != null) XrayReportManager.incrementCount(this);
+            if (uri != null) {
+                XrayReportManager.addImageReport(this, uri.toString());
+                Toast.makeText(this, "X-ray uploaded & report pending", Toast.LENGTH_SHORT).show();
+            }
         });
 
         findViewById(R.id.btn_profile_camera).setOnClickListener(v -> cameraLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)));

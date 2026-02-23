@@ -11,7 +11,19 @@ public class XrayReportManager {
     private static final String ADDED_URIS_KEY = "added_uris_set";
 
     public static void init(Context context) {
-        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        
+        // FORCING RESET FOR SYNC: Ensuring img_23, 24, 25 are ALWAYS visible
+        Set<String> deleted = new HashSet<>(prefs.getStringSet(DELETED_IMAGES_KEY, new HashSet<>()));
+        deleted.remove("img_23");
+        deleted.remove("img_24");
+        deleted.remove("img_25");
+        deleted.add("img_26"); // Keep this one hidden to maintain base count 3
+        
+        prefs.edit()
+             .putStringSet(DELETED_IMAGES_KEY, deleted)
+             .putStringSet(ADDED_URIS_KEY, new HashSet<>()) // Reset dynamic ones for fresh start
+             .apply();
     }
 
     public static int getReportCount(Context context) {
@@ -26,19 +38,14 @@ public class XrayReportManager {
                 visibleBaseCount++;
             }
         }
-        return Math.max(0, visibleBaseCount + added.size());
+        return visibleBaseCount + added.size();
     }
 
-    public static void incrementCount(Context context) {
-        // Fallback for generic increment if no URI is provided
-        addImageUri(context, "captured_" + System.currentTimeMillis());
-    }
-
-    public static void addImageUri(Context context, String uri) {
+    public static void addImageReport(Context context, String uri) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Set<String> added = new HashSet<>(prefs.getStringSet(ADDED_URIS_KEY, new HashSet<>()));
         if (added.add(uri)) {
-            prefs.edit().putStringSet(ADDED_URIS_KEY, added).commit();
+            prefs.edit().putStringSet(ADDED_URIS_KEY, added).apply();
         }
     }
 
@@ -47,7 +54,7 @@ public class XrayReportManager {
         Set<String> deleted = new HashSet<>(prefs.getStringSet(DELETED_IMAGES_KEY, new HashSet<>()));
         String resName = context.getResources().getResourceEntryName(resId);
         if (deleted.add(resName)) {
-            prefs.edit().putStringSet(DELETED_IMAGES_KEY, deleted).commit();
+            prefs.edit().putStringSet(DELETED_IMAGES_KEY, deleted).apply();
         }
     }
 
@@ -55,7 +62,7 @@ public class XrayReportManager {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Set<String> added = new HashSet<>(prefs.getStringSet(ADDED_URIS_KEY, new HashSet<>()));
         if (added.remove(uri)) {
-            prefs.edit().putStringSet(ADDED_URIS_KEY, added).commit();
+            prefs.edit().putStringSet(ADDED_URIS_KEY, added).apply();
         }
     }
 

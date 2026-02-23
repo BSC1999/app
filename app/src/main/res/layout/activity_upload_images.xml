@@ -71,10 +71,10 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#00E5FF"
+                    android:backgroundTint="#2C3E50"
                     android:text="Camera"
                     android:textAllCaps="false"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
                 <com.google.android.material.button.MaterialButton
@@ -83,10 +83,10 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:backgroundTint="#E8F3F3"
+                    android:backgroundTint="#2C3E50"
                     android:text="Upload"
                     android:textAllCaps="false"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
             </LinearLayout>
@@ -101,139 +101,19 @@
                 android:textStyle="bold" />
 
             <GridLayout
+                android:id="@+id/gl_images_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:columnCount="2"
                 android:alignmentMode="alignMargins"
                 android:columnOrderPreserved="false">
-
-                <!-- Reusable X-ray Item Style -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_upload_1"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/img_click_1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img_23" />
-                        <ImageButton
-                            android:id="@+id/btn_menu_upload_1"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="bottom|end"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/circle_bg"
-                            android:backgroundTint="#80FFFFFF"
-                            android:src="@drawable/ic_vertical_dots"
-                            android:padding="4dp"
-                            app:tint="#000000" />
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_upload_2"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/img_click_2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img_24" />
-                        <ImageButton
-                            android:id="@+id/btn_menu_upload_2"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="bottom|end"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/circle_bg"
-                            android:backgroundTint="#80FFFFFF"
-                            android:src="@drawable/ic_vertical_dots"
-                            android:padding="4dp"
-                            app:tint="#000000" />
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_upload_3"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/img_click_3"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img_25" />
-                        <ImageButton
-                            android:id="@+id/btn_menu_upload_3"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="bottom|end"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/circle_bg"
-                            android:backgroundTint="#80FFFFFF"
-                            android:src="@drawable/ic_vertical_dots"
-                            android:padding="4dp"
-                            app:tint="#000000" />
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_upload_4"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/img_click_4"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img_26" />
-                        <ImageButton
-                            android:id="@+id/btn_menu_upload_4"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="bottom|end"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/circle_bg"
-                            android:backgroundTint="#80FFFFFF"
-                            android:src="@drawable/ic_vertical_dots"
-                            android:padding="4dp"
-                            app:tint="#000000" />
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
-
+                <!-- Dynamic Image Cards added here via code -->
             </GridLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Navigation -->
+    <!-- Navigation Bar -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottom_nav_container"
         android:layout_width="match_parent"
@@ -248,56 +128,26 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/nav_home_custom"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+            <LinearLayout android:id="@+id/nav_home_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_16" app:tint="@color/nav_icon_unselected" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Home" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/nav_patients_custom"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+            <LinearLayout android:id="@+id/nav_patients_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_17" app:tint="@color/nav_icon_unselected" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Patients" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/nav_schedule_custom"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+            <LinearLayout android:id="@+id/nav_schedule_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_18" app:tint="@color/nav_icon_unselected" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Schedule" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/nav_ai_custom"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+            <LinearLayout android:id="@+id/nav_ai_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
                 <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
                     <View android:layout_width="48dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@drawable/circle_bg" />
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/img_19" app:tint="@color/nav_icon_selected" />
                 </FrameLayout>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI Assistant" android:textColor="@color/nav_icon_selected" android:textSize="12sp" android:textStyle="bold" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/nav_more_custom"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+            <LinearLayout android:id="@+id/nav_more_custom" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/img_20" app:tint="@color/nav_icon_unselected" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="More" android:textColor="@color/nav_icon_unselected" android:textSize="12sp" />
             </LinearLayout>

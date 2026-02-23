@@ -37,6 +37,8 @@
         <activity android:name=".AddPatientActivity" android:exported="false" />
         <activity android:name=".MedicalDentalHistoryActivity" android:exported="false" />
         <activity android:name=".XrayActivity" android:exported="false" />
+        <activity android:name=".ProblemMappingActivity" android:exported="false" />
+        <activity android:name=".SuggestionsActivity" android:exported="false" />
         <activity android:name=".PatientsActivity" android:exported="false" />
         <activity android:name=".PatientProfileActivity" android:exported="false" />
         <activity android:name=".DoctorProfileActivity" android:exported="false" />

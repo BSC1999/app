@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7F8"
+    tools:context=".ProblemMappingActivity">
+
+    <!-- Header Section (Matching Xray style) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="52dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#1A1A1A" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Problem Mapping"
+                android:textColor="#1A1A1A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_container"
+        app:layout_constraintTop_toBottomOf="@id/header_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- AI Live Analysis View -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+                <FrameLayout
+                    android:id="@+id/fl_xray_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/iv_analyzed_xray"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_22" />
+
+                    <!-- Labels -->
+                    <TextView
+                        android:id="@+id/tv_label_caries"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="40dp"
+                        android:text="CARIES"
+                        android:textColor="#FF4B4B"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/tv_label_lesion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="LESION"
+                        android:textColor="#F1C40F"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+
+                    <!-- Outline Circles -->
+                    <View
+                        android:id="@+id/circle_1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="50dp"
+                        android:background="@drawable/circle_outline"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/circle_2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/circle_outline"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/circle_3"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom|start"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/circle_outline"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/circle_bg"
+                        android:backgroundTint="#FFFFFF"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="● AI LIVE ANALYSIS"
+                        android:textColor="#5E9CB0"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:elevation="4dp"/>
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- FDI Dental Chart Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="FDI DENTAL CHART"
+                android:textColor="#1A1A1A"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+                <LinearLayout
+                    android:id="@+id/fdi_chart_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+                    <!-- Quadrant 1 UR 18 to 11 -->
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="8"
+                        android:alignmentMode="alignMargins">
+                        <TextView android:id="@+id/tooth_18" style="@style/TeethNodeLight" android:text="18"/>
+                        <TextView android:id="@+id/tooth_17" style="@style/TeethNodeLight" android:text="17"/>
+                        <TextView android:id="@+id/tooth_16" style="@style/TeethNodeLight" android:text="16"/>
+                        <TextView android:id="@+id/tooth_15" style="@style/TeethNodeLight" android:text="15"/>
+                        <TextView android:id="@+id/tooth_14" style="@style/TeethNodeLight" android:text="14"/>
+                        <TextView android:id="@+id/tooth_13" style="@style/TeethNodeLight" android:text="13"/>
+                        <TextView android:id="@+id/tooth_12" style="@style/TeethNodeLight" android:text="12"/>
+                        <TextView android:id="@+id/tooth_11" style="@style/TeethNodeLight" android:text="11"/>
+                    </GridLayout>
+                    <!-- Quadrant 2 UL 21 to 28 -->
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="8"
+                        android:layout_marginTop="4dp"
+                        android:alignmentMode="alignMargins">
+                        <TextView android:id="@+id/tooth_21" style="@style/TeethNodeLight" android:text="21"/>
+                        <TextView android:id="@+id/tooth_22" style="@style/TeethNodeLight" android:text="22"/>
+                        <TextView android:id="@+id/tooth_23" style="@style/TeethNodeLight" android:text="23"/>
+                        <TextView android:id="@+id/tooth_24" style="@style/TeethNodeLight" android:text="24"/>
+                        <TextView android:id="@+id/tooth_25" style="@style/TeethNodeLight" android:text="25"/>
+                        <TextView android:id="@+id/tooth_26" style="@style/TeethNodeLight" android:text="26"/>
+                        <TextView android:id="@+id/tooth_27" style="@style/TeethNodeLight" android:text="27"/>
+                        <TextView android:id="@+id/tooth_28" style="@style/TeethNodeLight" android:text="28"/>
+                    </GridLayout>
+                    <!-- Quadrant 4 LR 41 to 48 -->
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="8"
+                        android:layout_marginTop="8dp"
+                        android:alignmentMode="alignMargins">
+                        <TextView android:id="@+id/tooth_41" style="@style/TeethNodeLight" android:text="41"/>
+                        <TextView android:id="@+id/tooth_42" style="@style/TeethNodeLight" android:text="42"/>
+                        <TextView android:id="@+id/tooth_43" style="@style/TeethNodeLight" android:text="43"/>
+                        <TextView android:id="@+id/tooth_44" style="@style/TeethNodeLight" android:text="44"/>
+                        <TextView android:id="@+id/tooth_45" style="@style/TeethNodeLight" android:text="45"/>
+                        <TextView android:id="@+id/tooth_46" style="@style/TeethNodeLight" android:text="46"/>
+                        <TextView android:id="@+id/tooth_47" style="@style/TeethNodeLight" android:text="47"/>
+                        <TextView android:id="@+id/tooth_48" style="@style/TeethNodeLight" android:text="48"/>
+                    </GridLayout>
+                    <!-- Quadrant 3 LL 31 to 38 -->
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="8"
+                        android:layout_marginTop="4dp"
+                        android:alignmentMode="alignMargins">
+                        <TextView android:id="@+id/tooth_31" style="@style/TeethNodeLight" android:text="31"/>
+                        <TextView android:id="@+id/tooth_32" style="@style/TeethNodeLight" android:text="32"/>
+                        <TextView android:id="@+id/tooth_33" style="@style/TeethNodeLight" android:text="33"/>
+                        <TextView android:id="@+id/tooth_34" style="@style/TeethNodeLight" android:text="34"/>
+                        <TextView android:id="@+id/tooth_35" style="@style/TeethNodeLight" android:text="35"/>
+                        <TextView android:id="@+id/tooth_36" style="@style/TeethNodeLight" android:text="36"/>
+                        <TextView android:id="@+id/tooth_37" style="@style/TeethNodeLight" android:text="37"/>
+                        <TextView android:id="@+id/tooth_38" style="@style/TeethNodeLight" android:text="38"/>
+                    </GridLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_issue_count_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="AI DETECTED ISSUES (0)"
+                android:textColor="#1A1A1A"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
+
+            <!-- Issue Card 1 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_issue_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:id="@+id/tv_issue_1_tooth_num" android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/circle_bg" android:backgroundTint="#FEEBEB" android:gravity="center" android:text="16" android:textColor="#FF4B4B" android:textSize="16sp" android:textStyle="bold"/>
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="64dp">
+                            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                                <TextView android:id="@+id/tv_issue_1_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Deep Caries" android:textColor="#1A1A1A" android:textSize="18sp" android:textStyle="bold"/>
+                                <TextView android:id="@+id/tv_issue_1_severity_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:background="@drawable/circle_bg" android:backgroundTint="#FEEBEB" android:paddingHorizontal="10dp" android:paddingVertical="4dp" android:text="HIGH SEVERITY" android:textColor="#FF4B4B" android:textSize="10sp" android:textStyle="bold" />
+                            </RelativeLayout>
+                            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+                                <ProgressBar android:id="@+id/pb_issue_1" style="@android:style/Widget.ProgressBar.Horizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_centerVertical="true" android:layout_toStartOf="@id/tv_issue_1_percent" android:layout_marginEnd="12dp" android:progress="95" android:progressTint="#FF4B4B" />
+                                <TextView android:id="@+id/tv_issue_1_percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="95%" android:textColor="#5E9CB0" android:textSize="12sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginVertical="16dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_medical_briefcase" app:tint="#5E9CB0"/>
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SUGGESTED TREATMENT" android:textColor="#5E9CB0" android:textSize="11sp" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tv_issue_1_treatment" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Root Canal Therapy" android:textColor="#1A1A1A" android:textSize="14sp" android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Issue Card 2 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_issue_2"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:id="@+id/tv_issue_2_tooth_num" android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/circle_bg" android:backgroundTint="#FEF9E7" android:gravity="center" android:text="21" android:textColor="#F1C40F" android:textSize="16sp" android:textStyle="bold"/>
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="64dp">
+                            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                                <TextView android:id="@+id/tv_issue_2_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Periapical Lesion" android:textColor="#1A1A1A" android:textSize="18sp" android:textStyle="bold"/>
+                                <TextView android:id="@+id/tv_issue_2_severity_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:background="@drawable/circle_bg" android:backgroundTint="#FEF9E7" android:paddingHorizontal="10dp" android:paddingVertical="4dp" android:text="MODERATE" android:textColor="#F1C40F" android:textSize="10sp" android:textStyle="bold" />
+                            </RelativeLayout>
+                            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+                                <ProgressBar android:id="@+id/pb_issue_2" style="@android:style/Widget.ProgressBar.Horizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_centerVertical="true" android:layout_toStartOf="@id/tv_issue_2_percent" android:layout_marginEnd="12dp" android:progress="88" android:progressTint="#F1C40F" />
+                                <TextView android:id="@+id/tv_issue_2_percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="88%" android:textColor="#5E9CB0" android:textSize="12sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginVertical="16dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_medical_briefcase" app:tint="#5E9CB0"/>
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SUGGESTED TREATMENT" android:textColor="#3498DB" android:textSize="11sp" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tv_issue_2_treatment" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Apicoectomy" android:textColor="#1A1A1A" android:textSize="14sp" android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Issue Card 3 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_issue_3"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:id="@+id/tv_issue_3_tooth_num" android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/circle_bg" android:backgroundTint="#FEEBEB" android:gravity="center" android:text="38" android:textColor="#FF4B4B" android:textSize="16sp" android:textStyle="bold"/>
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="64dp">
+                            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                                <TextView android:id="@+id/tv_issue_3_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Enamel Caries" android:textColor="#1A1A1A" android:textSize="18sp" android:textStyle="bold"/>
+                                <TextView android:id="@+id/tv_issue_3_severity_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:background="@drawable/circle_bg" android:backgroundTint="#FEEBEB" android:paddingHorizontal="10dp" android:paddingVertical="4dp" android:text="HIGH SEVERITY" android:textColor="#FF4B4B" android:textSize="10sp" android:textStyle="bold" />
+                            </RelativeLayout>
+                            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+                                <ProgressBar android:id="@+id/pb_issue_3" style="@android:style/Widget.ProgressBar.Horizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_centerVertical="true" android:layout_toStartOf="@id/tv_issue_3_percent" android:layout_marginEnd="12dp" android:progress="92" android:progressTint="#FF4B4B" />
+                                <TextView android:id="@+id/tv_issue_3_percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="92%" android:textColor="#5E9CB0" android:textSize="12sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginVertical="16dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_medical_briefcase" app:tint="#5E9CB0"/>
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SUGGESTED TREATMENT" android:textColor="#5E9CB0" android:textSize="11sp" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tv_issue_3_treatment" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Composite Filling" android:textColor="#1A1A1A" android:textSize="14sp" android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_continue_suggestions"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#2C3E50"
+                android:text="Continue to Treatment Suggestions"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Standard Rectangle Bottom Dock Navigation (Dashboard Style) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottom_nav_container"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/nav_home_custom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/img_16"
+                    app:tint="@color/nav_icon_unselected" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Home"
+                    android:textColor="@color/nav_icon_unselected"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nav_patients_custom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/img_17"
+                    app:tint="@color/nav_icon_unselected" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Patients"
+                    android:textColor="@color/nav_icon_unselected"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nav_schedule_custom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/img_18"
+                    app:tint="@color/nav_icon_unselected" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Schedule"
+                    android:textColor="@color/nav_icon_unselected"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- AI Assistant (Selected) -->
+            <LinearLayout
+                android:id="@+id/nav_ai_custom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:layout_width="48dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_bg" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/img_19"
+                        app:tint="@color/nav_icon_selected" />
+                </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="AI Assistant"
+                    android:textColor="@color/nav_icon_selected"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nav_more_custom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/img_20"
+                    app:tint="@color/nav_icon_unselected" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="More"
+                    android:textColor="@color/nav_icon_unselected"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

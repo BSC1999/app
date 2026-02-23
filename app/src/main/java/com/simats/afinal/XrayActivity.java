@@ -3,12 +3,14 @@ package com.simats.afinal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.button.MaterialButton;
 
 public class XrayActivity extends AppCompatActivity {
+
+    private int selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,42 +25,28 @@ public class XrayActivity extends AppCompatActivity {
         TextView tvDiag3Title = findViewById(R.id.tv_diag_3_title);
         TextView tvDiag3Desc = findViewById(R.id.tv_diag_3_desc);
         
-        // Get the image passed
-        int selectedImage = getIntent().getIntExtra("selected_image", R.drawable.img_22);
+        selectedImage = getIntent().getIntExtra("selected_image", R.drawable.img_22);
         ivXrayDisplay.setImageResource(selectedImage);
 
-        // Dynamic Diagnosis Suggestions based on Image
         updateDiagnosisData(selectedImage, tvDiag1Title, tvDiag1Desc, tvDiag2Title, tvDiag2Desc, tvDiag3Title, tvDiag3Desc);
 
-        // Back arrow
-        ImageButton btnBack = findViewById(R.id.btn_back);
-        btnBack.setOnClickListener(v -> finish());
+        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
 
-        // Custom Bottom Nav Logic
-        findViewById(R.id.nav_home_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, DashboardActivity.class));
-            finish();
-        });
+        MaterialButton btnExplainable = findViewById(R.id.btn_explainable_ai);
+        if (btnExplainable != null) {
+            btnExplainable.setOnClickListener(v -> {
+                Intent intent = new Intent(XrayActivity.this, ProblemMappingActivity.class);
+                intent.putExtra("selected_image", selectedImage);
+                startActivity(intent);
+            });
+        }
 
-        findViewById(R.id.nav_patients_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, PatientsActivity.class));
-            finish();
-        });
-
-        findViewById(R.id.nav_schedule_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, TodayAppointmentActivity.class));
-            finish();
-        });
-        
-        findViewById(R.id.nav_ai_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, UploadImagesActivity.class));
-            finish();
-        });
-
-        findViewById(R.id.nav_more_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, MoreActivity.class));
-            finish();
-        });
+        // Bottom Nav Logic
+        findViewById(R.id.nav_home_custom).setOnClickListener(v -> { startActivity(new Intent(this, DashboardActivity.class)); finish(); });
+        findViewById(R.id.nav_patients_custom).setOnClickListener(v -> { startActivity(new Intent(this, PatientsActivity.class)); finish(); });
+        findViewById(R.id.nav_schedule_custom).setOnClickListener(v -> { startActivity(new Intent(this, TodayAppointmentActivity.class)); finish(); });
+        findViewById(R.id.nav_ai_custom).setOnClickListener(v -> { startActivity(new Intent(this, UploadImagesActivity.class)); finish(); });
+        findViewById(R.id.nav_more_custom).setOnClickListener(v -> { startActivity(new Intent(this, MoreActivity.class)); finish(); });
     }
 
     private void updateDiagnosisData(int resId, TextView t1, TextView d1, TextView t2, TextView d2, TextView t3, TextView d3) {
@@ -70,18 +58,10 @@ public class XrayActivity extends AppCompatActivity {
             t1.setText("Deep Cavity"); d1.setText("96% Confidence");
             t2.setText("Periapical Abscess"); d2.setText("88% Confidence");
             t3.setText("Root Canal Suggested"); d3.setText("90% Confidence");
-        } else if (resId == R.drawable.img_25) {
-            t1.setText("Impacted Molar"); d1.setText("99% Confidence");
-            t2.setText("Crowding Detected"); d2.setText("82% Confidence");
-            t3.setText("Orthodontic Consultation"); d3.setText("85% Confidence");
-        } else if (resId == R.drawable.img_26) {
-            t1.setText("Calculus Build-up"); d1.setText("94% Confidence");
-            t2.setText("Periodontal Pocket"); d2.setText("78% Confidence");
-            t3.setText("Scaling Recommended"); d3.setText("92% Confidence");
         } else {
-            t1.setText("Caries"); d1.setText("95% Confidence");
+            t1.setText("Deep Caries"); d1.setText("95% Confidence");
             t2.setText("Periapical Lesion"); d2.setText("80% Confidence");
-            t3.setText("Impacted Tooth"); d3.setText("70% Confidence");
+            t3.setText("Enamel Caries"); d3.setText("92% Confidence");
         }
     }
 }

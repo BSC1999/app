@@ -2,28 +2,36 @@ package com.simats.afinal;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import java.util.Set;
 
 public class UploadImagesActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> cameraLauncher;
     private ActivityResultLauncher<String> galleryLauncher;
+    private GridLayout glImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_images);
 
+        glImages = findViewById(R.id.gl_images_container); // I'll update the XML to add this ID
         MaterialButton btnCamera = findViewById(R.id.btn_camera);
         MaterialButton btnUpload = findViewById(R.id.btn_upload);
 
@@ -37,35 +45,32 @@ public class UploadImagesActivity extends AppCompatActivity {
         // Camera & Gallery Launchers
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
-                XrayReportManager.incrementCount(this);
-                Toast.makeText(this, "Image captured", Toast.LENGTH_SHORT).show();
+                // For Camera, we usually get a Bitmap or need a File URI.
+                // Simplified: Using timestamp as dummy ID for count and reload.
+                String dummyUri = "captured_" + System.currentTimeMillis();
+                XrayReportManager.addImageReport(this, dummyUri);
+                loadAllImages(); // Reload UI
+                Toast.makeText(this, "New AI Report added", Toast.LENGTH_SHORT).show();
             }
         });
 
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
             if (uri != null) {
-                XrayReportManager.incrementCount(this);
-                Toast.makeText(this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                // Persist permission for local URI if possible
+                try {
+                    getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } catch (Exception e) {}
+                
+                XrayReportManager.addImageReport(this, uri.toString());
+                loadAllImages(); // Reload UI
+                Toast.makeText(this, "New AI Report added", Toast.LENGTH_SHORT).show();
             }
         });
 
         if (btnCamera != null) btnCamera.setOnClickListener(v -> cameraLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)));
         if (btnUpload != null) btnUpload.setOnClickListener(v -> galleryLauncher.launch("image/*"));
 
-        // Sync visibility based on deleted images
-        syncImageVisibility();
-
-        // Setup menus for each card with their respective resource IDs
-        setupXrayMenu(R.id.btn_menu_upload_1, R.id.card_upload_1, R.drawable.img_23);
-        setupXrayMenu(R.id.btn_menu_upload_2, R.id.card_upload_2, R.drawable.img_24);
-        setupXrayMenu(R.id.btn_menu_upload_3, R.id.card_upload_3, R.drawable.img_25);
-        setupXrayMenu(R.id.btn_menu_upload_4, R.id.card_upload_4, R.drawable.img_26);
-
-        // Click Logic
-        setupImageClick(R.id.img_click_1, R.drawable.img_23);
-        setupImageClick(R.id.img_click_2, R.drawable.img_24);
-        setupImageClick(R.id.img_click_3, R.drawable.img_25);
-        setupImageClick(R.id.img_click_4, R.drawable.img_26);
+        loadAllImages();
 
         // Navigation
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
@@ -75,42 +80,59 @@ public class UploadImagesActivity extends AppCompatActivity {
         findViewById(R.id.nav_more_custom).setOnClickListener(v -> { startActivity(new Intent(this, MoreActivity.class)); finish(); });
     }
 
-    private void syncImageVisibility() {
-        if (XrayReportManager.isDeleted(this, R.drawable.img_23)) findViewById(R.id.card_upload_1).setVisibility(View.GONE);
-        if (XrayReportManager.isDeleted(this, R.drawable.img_24)) findViewById(R.id.card_upload_2).setVisibility(View.GONE);
-        if (XrayReportManager.isDeleted(this, R.drawable.img_25)) findViewById(R.id.card_upload_3).setVisibility(View.GONE);
-        if (XrayReportManager.isDeleted(this, R.drawable.img_26)) findViewById(R.id.card_upload_4).setVisibility(View.GONE);
-    }
+    private void loadAllImages() {
+        if (glImages == null) return;
+        glImages.removeAllViews();
 
-    private void setupXrayMenu(int buttonId, int cardId, int resId) {
-        ImageButton btnMenu = findViewById(buttonId);
-        View card = findViewById(cardId);
-        if (btnMenu != null && card != null) {
-            btnMenu.setOnClickListener(v -> {
-                PopupMenu popup = new PopupMenu(this, v);
-                popup.getMenu().add("Delete");
-                popup.setOnMenuItemClickListener(item -> {
-                    if ("Delete".equals(item.getTitle())) {
-                        card.setVisibility(View.GONE);
-                        XrayReportManager.deleteImage(this, resId);
-                        Toast.makeText(this, "Image deleted permanently", Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                    return false;
-                });
-                popup.show();
-            });
+        // 1. Load Standard Images (if not deleted)
+        int[] baseRes = {R.drawable.img_23, R.drawable.img_24, R.drawable.img_25, R.drawable.img_26};
+        for (int res : baseRes) {
+            if (!XrayReportManager.isDeleted(this, res)) {
+                addImageToGrid(null, res);
+            }
+        }
+
+        // 2. Load Dynamically Added Images
+        Set<String> addedUris = XrayReportManager.getAddedUris(this);
+        for (String uriStr : addedUris) {
+            addImageToGrid(uriStr, 0);
         }
     }
 
-    private void setupImageClick(int viewId, int resId) {
-        ImageView iv = findViewById(viewId);
-        if (iv != null) {
-            iv.setOnClickListener(v -> {
-                Intent intent = new Intent(this, XrayActivity.class);
-                intent.putExtra("selected_image", resId);
-                startActivity(intent);
-            });
+    private void addImageToGrid(String uriStr, int resId) {
+        View cardView = LayoutInflater.from(this).inflate(R.layout.item_upload_card, glImages, false);
+        ImageView iv = cardView.findViewById(R.id.iv_item_upload);
+        ImageButton btnMenu = cardView.findViewById(R.id.btn_item_menu);
+
+        if (uriStr != null) {
+            if (uriStr.startsWith("captured_")) {
+                iv.setImageResource(R.drawable.img_22); // Dummy for captured
+            } else {
+                iv.setImageURI(Uri.parse(uriStr));
+            }
+        } else {
+            iv.setImageResource(resId);
         }
+
+        iv.setOnClickListener(v -> {
+            Intent intent = new Intent(this, XrayActivity.class);
+            if (uriStr != null) intent.putExtra("selected_uri", uriStr);
+            else intent.putExtra("selected_image", resId);
+            startActivity(intent);
+        });
+
+        btnMenu.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(this, v);
+            popup.getMenu().add("Delete");
+            popup.setOnMenuItemClickListener(item -> {
+                if (uriStr != null) XrayReportManager.deleteUri(this, uriStr);
+                else XrayReportManager.deleteImage(this, resId);
+                loadAllImages();
+                return true;
+            });
+            popup.show();
+        });
+
+        glImages.addView(cardView);
     }
 }
