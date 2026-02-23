@@ -11,6 +11,8 @@ import com.google.android.material.button.MaterialButton;
 public class XrayActivity extends AppCompatActivity {
 
     private int selectedImage;
+    private boolean fromPatientProfile = false;
+    private PatientInfo patientData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class XrayActivity extends AppCompatActivity {
         TextView tvDiag3Desc = findViewById(R.id.tv_diag_3_desc);
         
         selectedImage = getIntent().getIntExtra("selected_image", R.drawable.img_22);
+        fromPatientProfile = getIntent().getBooleanExtra("from_patient_profile", false);
+        patientData = (PatientInfo) getIntent().getSerializableExtra("patient_data");
         ivXrayDisplay.setImageResource(selectedImage);
 
         updateDiagnosisData(selectedImage, tvDiag1Title, tvDiag1Desc, tvDiag2Title, tvDiag2Desc, tvDiag3Title, tvDiag3Desc);
@@ -35,8 +39,11 @@ public class XrayActivity extends AppCompatActivity {
         MaterialButton btnExplainable = findViewById(R.id.btn_explainable_ai);
         if (btnExplainable != null) {
             btnExplainable.setOnClickListener(v -> {
-                Intent intent = new Intent(XrayActivity.this, ProblemMappingActivity.class);
+                // REDIRECTION FIX: Xray -> Problem Screen
+                Intent intent = new Intent(XrayActivity.this, ProblemActivity.class);
                 intent.putExtra("selected_image", selectedImage);
+                intent.putExtra("from_patient_profile", fromPatientProfile);
+                intent.putExtra("patient_data", patientData);
                 startActivity(intent);
             });
         }

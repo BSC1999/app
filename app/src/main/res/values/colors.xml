@@ -7,4 +7,5 @@
     <color name="nav_selected_bg">#E8EAF6</color>
     <color name="nav_icon_unselected">#5E9CB0</color>
     <color name="nav_icon_selected">#1A1A1A</color>
+    <color name="btn_color">#2C3E50</color>
 </resources>

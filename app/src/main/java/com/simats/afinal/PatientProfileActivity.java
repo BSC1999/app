@@ -255,6 +255,8 @@ public class PatientProfileActivity extends AppCompatActivity {
             iv.setOnClickListener(v -> {
                 Intent intent = new Intent(this, XrayActivity.class);
                 intent.putExtra("selected_image", resId);
+                intent.putExtra("from_patient_profile", true);
+                intent.putExtra("patient_data", currentPatient); // Added patient_data
                 startActivity(intent);
             });
         }

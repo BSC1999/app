@@ -40,9 +40,6 @@
         <activity android:name=".ProblemActivity" android:exported="false" />
         <activity android:name=".TreatmentSelectionActivity" android:exported="false" />
         <activity android:name=".TreatmentTimelineActivity" android:exported="false" />
-        <activity android:name=".TreatmentPlanActivity" android:exported="false" />
-        <activity android:name=".AIDrugRecommendationActivity" android:exported="false" />
-        <activity android:name=".PrescriptionPreviewActivity" android:exported="false" />
         <activity android:name=".SuggestionsActivity" android:exported="false" />
         <activity android:name=".PatientsActivity" android:exported="false" />
         <activity android:name=".PatientProfileActivity" android:exported="false" />
