@@ -10,7 +10,7 @@ import com.google.android.material.card.MaterialCardView;
 
 public class SelectRoleActivity extends AppCompatActivity {
 
-    private MaterialCardView cardDoctor, cardConsultant, cardAssistant;
+    private MaterialCardView cardAdmin, cardDoctor, cardConsultant, cardAssistant;
     private Button btnConfirm;
     private ImageButton btnBack;
     private MaterialCardView selectedSection = null;
@@ -21,6 +21,7 @@ public class SelectRoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_role);
 
+        cardAdmin = findViewById(R.id.card_admin);
         cardDoctor = findViewById(R.id.card_doctor);
         cardConsultant = findViewById(R.id.card_consultant);
         cardAssistant = findViewById(R.id.card_assistant);
@@ -36,11 +37,13 @@ public class SelectRoleActivity extends AppCompatActivity {
             selectedSection.setStrokeWidth(6);
             btnConfirm.setEnabled(true);
 
-            if (v.getId() == R.id.card_doctor) selectedRole = "Doctor";
+            if (v.getId() == R.id.card_admin) selectedRole = "Admin";
+            else if (v.getId() == R.id.card_doctor) selectedRole = "Dental Doctor";
             else if (v.getId() == R.id.card_consultant) selectedRole = "Consultant";
-            else if (v.getId() == R.id.card_assistant) selectedRole = "Intern";
+            else if (v.getId() == R.id.card_assistant) selectedRole = "Dental Intern / Assistant";
         };
 
+        cardAdmin.setOnClickListener(roleSelectListener);
         cardDoctor.setOnClickListener(roleSelectListener);
         cardConsultant.setOnClickListener(roleSelectListener);
         cardAssistant.setOnClickListener(roleSelectListener);
@@ -54,11 +57,21 @@ public class SelectRoleActivity extends AppCompatActivity {
 
     private void resetCards() {
         int defaultStrokeColor = getResources().getColor(android.R.color.darker_gray);
-        cardDoctor.setStrokeWidth(2);
-        cardDoctor.setStrokeColor(defaultStrokeColor);
-        cardConsultant.setStrokeWidth(2);
-        cardConsultant.setStrokeColor(defaultStrokeColor);
-        cardAssistant.setStrokeWidth(2);
-        cardAssistant.setStrokeColor(defaultStrokeColor);
+        if (cardAdmin != null) {
+            cardAdmin.setStrokeWidth(2);
+            cardAdmin.setStrokeColor(defaultStrokeColor);
+        }
+        if (cardDoctor != null) {
+            cardDoctor.setStrokeWidth(2);
+            cardDoctor.setStrokeColor(defaultStrokeColor);
+        }
+        if (cardConsultant != null) {
+            cardConsultant.setStrokeWidth(2);
+            cardConsultant.setStrokeColor(defaultStrokeColor);
+        }
+        if (cardAssistant != null) {
+            cardAssistant.setStrokeWidth(2);
+            cardAssistant.setStrokeColor(defaultStrokeColor);
+        }
     }
 }

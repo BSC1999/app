@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- DOCTOR ID Container -->
+    <!-- ID Container -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_id"
         android:layout_width="match_parent"
@@ -40,9 +40,8 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
-            android:hint="DOCTOR ID"
-            android:inputType="number"
-            android:maxLength="7"
+            android:hint="ID"
+            android:inputType="text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:textColor="#1A1A1A"

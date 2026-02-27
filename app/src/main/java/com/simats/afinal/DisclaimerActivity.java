@@ -30,8 +30,16 @@ public class DisclaimerActivity extends AppCompatActivity {
         });
 
         btnAgree.setOnClickListener(v -> {
-            // SUCCESS: Redirect to Dashboard and clear stack
-            Intent intent = new Intent(DisclaimerActivity.this, DashboardActivity.class);
+            String role = UserManager.getCurrentRole();
+            Intent intent;
+
+            // Mawa, redirecting to different dashboards based on role
+            if ("Admin".equalsIgnoreCase(role)) {
+                intent = new Intent(DisclaimerActivity.this, AdminDashboardActivity.class);
+            } else {
+                intent = new Intent(DisclaimerActivity.this, DashboardActivity.class);
+            }
+
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();

@@ -35,15 +35,14 @@ public class ProblemActivity extends AppCompatActivity {
         ivAnalyzedXray.setImageResource(selectedImage);
 
         btnContinue = findViewById(R.id.btn_continue_suggestions);
-        // Initially enabled to allow clicking for the alert if no issue is selected
-        btnContinue.setEnabled(true); 
+        btnContinue.setEnabled(true);
         btnContinue.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#2C3E50")));
         
         tvIssueCountHeader = findViewById(R.id.tv_issue_count_header);
 
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
 
-        // Setup dynamic issues based on the X-ray image
+        // Mawa, AI simulation starting...
         setupDynamicIssues(selectedImage);
 
         btnContinue.setOnClickListener(v -> {
@@ -56,12 +55,11 @@ public class ProblemActivity extends AppCompatActivity {
                 intent.putExtra("patient_data", patientData);
                 startActivity(intent);
             } else {
-                // Mawa, if no issue is selected, show this alert
                 Toast.makeText(this, "Select any issue", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Navigation (Dashboard style)
+        // Navigation
         findViewById(R.id.nav_home_custom).setOnClickListener(v -> { startActivity(new Intent(this, DashboardActivity.class)); finish(); });
         findViewById(R.id.nav_patients_custom).setOnClickListener(v -> { startActivity(new Intent(this, PatientsActivity.class)); finish(); });
         findViewById(R.id.nav_ai_custom).setOnClickListener(v -> { /* Already here */ });
@@ -69,22 +67,43 @@ public class ProblemActivity extends AppCompatActivity {
     }
 
     private void setupDynamicIssues(int imageResId) {
+        // Reset visibility
         findViewById(R.id.highlight_1).setVisibility(View.GONE);
         findViewById(R.id.highlight_2).setVisibility(View.GONE);
         findViewById(R.id.card_issue_1).setVisibility(View.GONE);
         findViewById(R.id.card_issue_2).setVisibility(View.GONE);
 
+        // Mawa, ippudu prathi X-ray ki separate logic untundhi, confusion lekunda
         if (imageResId == R.drawable.img_23) {
+            // Case 1: Enamel Caries & Gingivitis
             showIssue(1, "14", "Enamel Caries", "#FF4B4B", "HIGH SEVERITY", 92, "Fluoride Treatment", R.id.highlight_1, R.id.card_issue_1);
             showIssue(2, "26", "Mild Gingivitis", "#F1C40F", "MODERATE", 75, "Professional Cleaning", R.id.highlight_2, R.id.card_issue_2);
             highlightChartTooth("14", "#FF4B4B");
             highlightChartTooth("26", "#F1C40F");
             if (tvIssueCountHeader != null) tvIssueCountHeader.setText("AI DETECTED ISSUES (2)");
-        } else {
-            showIssue(1, "16", "Deep Caries", "#FF4B4B", "HIGH SEVERITY", 95, "Root Canal Therapy", R.id.highlight_1, R.id.card_issue_1);
-            showIssue(2, "21", "Periapical Lesion", "#F1C40F", "MODERATE", 88, "Apicoectomy", R.id.highlight_2, R.id.card_issue_2);
+        } else if (imageResId == R.drawable.img_24) {
+            // Case 2: Deep Cavity & Periapical Abscess
+            showIssue(1, "16", "Deep Cavity", "#FF4B4B", "CRITICAL", 96, "Root Canal sugersted", R.id.highlight_1, R.id.card_issue_1);
+            showIssue(2, "17", "Abscess", "#E74C3C", "MODERATE", 88, "Endodontic Treatment", R.id.highlight_2, R.id.card_issue_2);
             highlightChartTooth("16", "#FF4B4B");
-            highlightChartTooth("21", "#F1C40F");
+            highlightChartTooth("17", "#E74C3C");
+            if (tvIssueCountHeader != null) tvIssueCountHeader.setText("AI DETECTED ISSUES (2)");
+        } else if (imageResId == R.drawable.img_25) {
+            // Case 3: Periodontitis
+            showIssue(1, "32", "Periodontitis", "#F39C12", "MODERATE", 82, "Scaling & Root Planing", R.id.highlight_1, R.id.card_issue_1);
+            highlightChartTooth("32", "#F39C12");
+            if (tvIssueCountHeader != null) tvIssueCountHeader.setText("AI DETECTED ISSUES (1)");
+        } else if (imageResId == R.drawable.img_26) {
+            // Case 4: Impacted Wisdom Tooth
+            showIssue(1, "38", "Impacted Tooth", "#9B59B6", "HIGH", 94, "Surgical Extraction", R.id.highlight_1, R.id.card_issue_1);
+            highlightChartTooth("38", "#9B59B6");
+            if (tvIssueCountHeader != null) tvIssueCountHeader.setText("AI DETECTED ISSUES (1)");
+        } else {
+            // Default for newly added/uploaded images - Mawa, ikkada predict chesthundhi AI
+            showIssue(1, "11", "Incipient Caries", "#FF4B4B", "INITIAL", 85, "Remineralization", R.id.highlight_1, R.id.card_issue_1);
+            showIssue(2, "46", "Calculus Deposit", "#F1C40F", "MILD", 78, "Dental Prophylaxis", R.id.highlight_2, R.id.card_issue_2);
+            highlightChartTooth("11", "#FF4B4B");
+            highlightChartTooth("46", "#F1C40F");
             if (tvIssueCountHeader != null) tvIssueCountHeader.setText("AI DETECTED ISSUES (2)");
         }
     }
@@ -97,7 +116,7 @@ public class ProblemActivity extends AppCompatActivity {
             View viewHighlightRect = findViewById(index == 1 ? R.id.view_highlight_rect_1 : R.id.view_highlight_rect_2);
             
             if (tvHighlightLabel != null) {
-                String label = title.contains("Caries") ? "CARIES" : (title.contains("Lesion") ? "LESION" : title.toUpperCase());
+                String label = title.contains("Caries") ? "CARIES" : (title.contains("Lesion") ? "LESION" : (title.contains("Cavity") ? "CAVITY" : title.toUpperCase()));
                 tvHighlightLabel.setText(label);
                 tvHighlightLabel.setTextColor(android.graphics.Color.parseColor(color));
             }
@@ -119,7 +138,7 @@ public class ProblemActivity extends AppCompatActivity {
             
             if (tvToothNum != null) {
                 tvToothNum.setText(tooth);
-                tvToothNum.setTextColor(android.graphics.Color.BLACK); // Set tooth count color to black
+                tvToothNum.setTextColor(android.graphics.Color.BLACK);
                 tvToothNum.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor(color)));
             }
             if (tvTitle != null) tvTitle.setText(title);
@@ -135,7 +154,6 @@ public class ProblemActivity extends AppCompatActivity {
             if (tvTreatment != null) tvTreatment.setText(treatment);
 
             card.setOnClickListener(v -> {
-                // If a card was already selected, reset its appearance
                 if (selectedView != null) {
                     MaterialCardView previousCard = (MaterialCardView) selectedView;
                     previousCard.setStrokeWidth(1);
@@ -147,7 +165,6 @@ public class ProblemActivity extends AppCompatActivity {
                 selectedDiagnosis = title;
                 selectedView = card;
                 
-                // Mawa, highlight the selected card with light teal theme (#E8F3F3)
                 card.setStrokeWidth(6);
                 card.setStrokeColor(android.graphics.Color.parseColor("#E8F3F3")); 
                 card.setCardBackgroundColor(android.graphics.Color.parseColor("#E8F3F3"));
@@ -164,7 +181,7 @@ public class ProblemActivity extends AppCompatActivity {
             if (tv != null) {
                 tv.setBackgroundResource(R.drawable.circle_outline);
                 tv.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor(color)));
-                tv.setTextColor(android.graphics.Color.BLACK); // Set tooth count color to black
+                tv.setTextColor(android.graphics.Color.BLACK);
             }
         }
     }

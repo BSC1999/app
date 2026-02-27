@@ -34,16 +34,8 @@ public class PatientsActivity extends AppCompatActivity {
         btnRecent = findViewById(R.id.btn_recent);
         btnAll = findViewById(R.id.btn_all);
 
-        // Load data based on Role
-        String role = UserManager.getCurrentRole();
-        if ("Doctor".equalsIgnoreCase(role)) {
-            // Show only this doctor's patients
-            allPatients = PatientDataManager.getPatientsForDoctor(UserManager.getCurrentDoctorName());
-        } else {
-            // Consultant/Intern: Show all patients
-            allPatients = PatientDataManager.getAllPatients();
-        }
-
+        // Load data strictly for Doctors
+        allPatients = PatientDataManager.getPatientsForDoctor(UserManager.getCurrentDoctorName());
         filteredPatients = new ArrayList<>(allPatients);
         
         adapter = new PatientAdapter(filteredPatients);
@@ -62,52 +54,17 @@ public class PatientsActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Filter Logic
-        btnRecent.setOnClickListener(v -> {
-            Collections.sort(filteredPatients, (p1, p2) -> Long.compare(p2.getAddedTimestamp(), p1.getAddedTimestamp()));
-            adapter.notifyDataSetChanged();
+        // Redirect to standard Doctor profile
+        adapter.setOnItemClickListener(patient -> {
+            Intent intent = new Intent(this, PatientProfileActivity.class);
+            intent.putExtra("patient_data", patient);
+            startActivity(intent);
         });
 
-        btnAll.setOnClickListener(v -> {
-            filteredPatients.clear();
-            filteredPatients.addAll(allPatients);
-            adapter.notifyDataSetChanged();
-        });
-
-        // FAB to add patient
-        findViewById(R.id.fab_add_patient_container).setOnClickListener(v -> {
-            startActivity(new Intent(PatientsActivity.this, AddPatientActivity.class));
-        });
-
-        // Back arrow
-        ImageButton btnBack = findViewById(R.id.btn_back);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> {
-                startActivity(new Intent(PatientsActivity.this, DashboardActivity.class));
-                finish();
-            });
-        }
-
-        // Navigation Logic
-        findViewById(R.id.nav_home_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, DashboardActivity.class));
-            finish();
-        });
-
-        findViewById(R.id.nav_schedule_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, TodayAppointmentActivity.class));
-            finish();
-        });
-
-        findViewById(R.id.nav_ai_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, UploadImagesActivity.class));
-            finish();
-        });
-
-        findViewById(R.id.nav_more_custom).setOnClickListener(v -> {
-            startActivity(new Intent(this, MoreActivity.class));
-            finish();
-        });
+        // Navigation
+        findViewById(R.id.nav_home_custom).setOnClickListener(v -> { startActivity(new Intent(this, DashboardActivity.class)); finish(); });
+        findViewById(R.id.nav_schedule_custom).setOnClickListener(v -> { startActivity(new Intent(this, TodayAppointmentActivity.class)); finish(); });
+        findViewById(R.id.nav_more_custom).setOnClickListener(v -> { startActivity(new Intent(this, MoreActivity.class)); finish(); });
     }
 
     private void filter(String text) {

@@ -15,6 +15,15 @@ import java.util.List;
 public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.ViewHolder> {
 
     private List<PatientInfo> patientList;
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(PatientInfo patient);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public PatientAdapter(List<PatientInfo> patientList) {
         this.patientList = patientList;
@@ -33,7 +42,6 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.ViewHold
         holder.tvName.setText(patient.getName());
         holder.tvDetails.setText("ID: " + patient.getId() + " | Age: " + patient.getAge() + " | Last Visit: " + patient.getLastVisit());
         
-        // Updated: Male -> img1000, Female -> img1001
         if (patient.isFemale()) {
             holder.ivIcon.setImageResource(R.drawable.img1001);
         } else {
@@ -49,9 +57,13 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.ViewHold
         }
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), PatientProfileActivity.class);
-            intent.putExtra("patient_data", patient);
-            v.getContext().startActivity(intent);
+            if (listener != null) {
+                listener.onItemClick(patient);
+            } else {
+                Intent intent = new Intent(v.getContext(), PatientProfileActivity.class);
+                intent.putExtra("patient_data", patient);
+                v.getContext().startActivity(intent);
+            }
         });
 
         holder.itemView.setOnLongClickListener(v -> {

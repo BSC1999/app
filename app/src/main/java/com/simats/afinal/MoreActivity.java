@@ -16,10 +16,6 @@ public class MoreActivity extends AppCompatActivity {
             startActivity(new Intent(MoreActivity.this, DoctorProfileActivity.class));
         });
 
-        findViewById(R.id.btn_audit_logs).setOnClickListener(v -> {
-            startActivity(new Intent(MoreActivity.this, AuditLogsActivity.class));
-        });
-
         findViewById(R.id.btn_about_legal).setOnClickListener(v -> {
             startActivity(new Intent(MoreActivity.this, AboutLegalActivity.class));
         });

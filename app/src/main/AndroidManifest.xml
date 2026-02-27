@@ -32,6 +32,13 @@
         <activity android:name=".ResetPasswordActivity" android:exported="false" />
         <activity android:name=".DisclaimerActivity" android:exported="false" />
         <activity android:name=".DashboardActivity" android:exported="false" />
+        <activity android:name=".AdminDashboardActivity" android:exported="false" />
+        <activity android:name=".AdminSettingsActivity" android:exported="false" />
+        <activity android:name=".SecuritySettingsActivity" android:exported="false" />
+        <activity android:name=".ManageDoctorsActivity" android:exported="false" />
+        <activity android:name=".CreateDoctorActivity" android:exported="false" />
+        <activity android:name=".PatientDatabaseActivity" android:exported="false" />
+        <activity android:name=".SystemActivityLogsActivity" android:exported="false" />
         <activity android:name=".TodayAppointmentActivity" android:exported="false" />
         <activity android:name=".UploadImagesActivity" android:exported="false" />
         <activity android:name=".AddPatientActivity" android:exported="false" />
@@ -46,6 +53,7 @@
         <activity android:name=".SuggestionsActivity" android:exported="false" />
         <activity android:name=".PatientsActivity" android:exported="false" />
         <activity android:name=".PatientProfileActivity" android:exported="false" />
+        <activity android:name=".AdminPatientProfileActivity" android:exported="false" />
         <activity android:name=".DoctorProfileActivity" android:exported="false" />
         <activity android:name=".NextScheduleActivity" android:exported="false" />
         <activity android:name=".PrescriptionActivity" android:exported="false" />

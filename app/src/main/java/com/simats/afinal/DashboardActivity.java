@@ -55,12 +55,27 @@ public class DashboardActivity extends AppCompatActivity {
 
         // --- Quick Actions ---
         findViewById(R.id.ll_add_patient).setOnClickListener(v -> startActivity(new Intent(this, AddPatientActivity.class)));
-        findViewById(R.id.ll_upload_xray).setOnClickListener(v -> startActivity(new Intent(this, PatientsActivity.class)));
+        findViewById(R.id.ll_upload_xray).setOnClickListener(v -> {
+            // Mawa, checking role for patient redirection
+            if ("Admin".equalsIgnoreCase(UserManager.getCurrentRole())) {
+                startActivity(new Intent(this, PatientDatabaseActivity.class));
+            } else {
+                startActivity(new Intent(this, PatientsActivity.class));
+            }
+        });
         findViewById(R.id.ll_write_prescription).setOnClickListener(v -> startActivity(new Intent(this, PrescriptionActivity.class)));
 
         // --- Bottom Navigation ---
         findViewById(R.id.nav_home_custom).setOnClickListener(v -> {});
-        findViewById(R.id.nav_patients_custom).setOnClickListener(v -> { startActivity(new Intent(this, PatientsActivity.class)); finish(); });
+        findViewById(R.id.nav_patients_custom).setOnClickListener(v -> {
+            // Mawa, checking role for navigation redirection
+            if ("Admin".equalsIgnoreCase(UserManager.getCurrentRole())) {
+                startActivity(new Intent(this, PatientDatabaseActivity.class));
+            } else {
+                startActivity(new Intent(this, PatientsActivity.class));
+            }
+            finish();
+        });
         findViewById(R.id.nav_schedule_custom).setOnClickListener(v -> { startActivity(new Intent(this, TodayAppointmentActivity.class)); finish(); });
         findViewById(R.id.nav_ai_custom).setOnClickListener(v -> { startActivity(new Intent(this, UploadImagesActivity.class)); finish(); });
         findViewById(R.id.nav_more_custom).setOnClickListener(v -> { startActivity(new Intent(this, MoreActivity.class)); finish(); });

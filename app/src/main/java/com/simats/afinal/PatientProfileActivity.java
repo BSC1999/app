@@ -98,7 +98,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         XrayReportManager.init(this);
         syncXrayVisibility();
 
-        // Camera & Gallery Fix: Using new addImageReport logic
+        // Camera & Gallery Launchers
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 String dummyUri = "captured_" + System.currentTimeMillis();
@@ -132,7 +132,6 @@ public class PatientProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh patient data when returning from NextScheduleActivity
         if (currentPatient != null) {
             for (PatientInfo p : PatientDataManager.getAllPatients()) {
                 if (p.getId().equals(currentPatient.getId())) {
@@ -169,7 +168,6 @@ public class PatientProfileActivity extends AppCompatActivity {
         tvInitialComplaint.setText(currentPatient.getComplaint() != null && !currentPatient.getComplaint().isEmpty() ? currentPatient.getComplaint() : "No complaint recorded");
         tvMedicalHistory.setText(currentPatient.getMedicalHistory() != null && !currentPatient.getMedicalHistory().isEmpty() ? currentPatient.getMedicalHistory() : "No medical history recorded");
         
-        // Set Schedule Date & Time
         if (currentPatient.getNextScheduleDate() != null && !currentPatient.getNextScheduleDate().isEmpty()) {
             String scheduleInfo = currentPatient.getNextScheduleDate();
             if (currentPatient.getNextScheduleTime() != null && !currentPatient.getNextScheduleTime().isEmpty()) {
@@ -256,7 +254,7 @@ public class PatientProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, XrayActivity.class);
                 intent.putExtra("selected_image", resId);
                 intent.putExtra("from_patient_profile", true);
-                intent.putExtra("patient_data", currentPatient); // Added patient_data
+                intent.putExtra("patient_data", currentPatient);
                 startActivity(intent);
             });
         }

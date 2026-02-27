@@ -16,6 +16,7 @@ public class StartActivity extends AppCompatActivity {
         btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Mawa, going to SelectRoleActivity first
                 Intent intent = new Intent(StartActivity.this, SelectRoleActivity.class);
                 startActivity(intent);
             }

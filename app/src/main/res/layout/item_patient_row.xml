@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_row_patient_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Jonathan Harker"
+        android:textColor="#1A1A1A"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_row_patient_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="#PT-88210"
+        android:textColor="#8BBABB"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_row_patient_age"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="34"
+        android:textColor="#1A1A1A"
+        android:textSize="14sp" />
+
+</LinearLayout>
